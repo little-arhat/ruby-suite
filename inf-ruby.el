@@ -93,7 +93,7 @@ next one.")
   (define-key ruby-mode-map (kbd "C-c C-l") 'ruby-load-file)
   (define-key ruby-mode-map (kbd "C-c !")    'run-ruby)
   (define-key ruby-mode-map (kbd "C-c |")    'ruby-send-region)
-  (define-key ruby-mode-map (kdb "C-c }")    'ruby-send-region-and-go)
+  (define-key ruby-mode-map (kbd "C-c }")    'ruby-send-region-and-go)
   (define-key ruby-mode-map (kbd "C-c C-s") 'inf-ruby))
 
 (defvar inf-ruby-buffer nil "Current irb process buffer.")
