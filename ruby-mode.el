@@ -155,6 +155,11 @@ This should only be called after matching against `ruby-here-doc-end-re'."
     (define-key map (kbd "C-M-h") 'backward-kill-word)
     (define-key map (kbd "C-j")   'reindent-then-newline-and-indent)
     (define-key map (kbd "C-m")   'newline)
+    (define-key map (kbd "C-c >") 'ruby-shift-region-right)
+    (define-key map (kbd "C-c <") 'ruby-shift-region-left)
+    (define-key map (kbd "C-c !") 'run-ruby)
+    (define-key map (kbd "C-c |") 'ruby-send-region)
+    (define-key map (kbd "C-c }") 'ruby-send-region-and-go)
     map)
   "Keymap used in ruby-mode.")
 
@@ -768,7 +773,7 @@ and `\\' when preceded by `?'."
           (setq indent (ruby-indent-size (current-column) (nth 2 state))))
          (t
           (setq indent (+ (current-column) ruby-indent-level)))))
-       
+
        ((and (nth 2 state) (< (nth 2 state) 0)) ; in negative nest
         (setq indent (ruby-indent-size (current-column) (nth 2 state)))))
       (when indent
@@ -1309,6 +1314,63 @@ See the definition of `ruby-font-lock-syntactic-keywords'."
                           (not (re-search-forward ruby-here-doc-beg-re eol t))))
               (string-to-syntax "|")))))))
 
+;;; Shameless copied from python-mode.el
+;;; https://launchpad.net/python-mode
+
+(defcustom ruby-indent-offset 2
+  "*Amount of offset per level of indentation."
+  :type 'integer
+  :group 'ruby)
+
+(defsubst ruby-keep-region-active ()
+  (and (boundp 'zmacs-region-stays)
+       (setq zmacs-region-stays t)))
+
+(defun ruby-shift-region (start end count)
+  (save-excursion
+    (goto-char end)
+    (beginning-of-line)
+    (setq end (point))
+    (goto-char start)
+    (beginning-of-line)
+    (setq start (point))
+    (let (deactivate-mark)
+      (indent-rigidly start end count))))
+
+(defun ruby-shift-region-right (start end &optional count)
+  (interactive
+   (let ((p (point))
+         (m (condition-case nil (mark) (mark-inactive nil)))
+         (arg current-prefix-arg))
+     (if m
+         (list (min p m) (max p m) arg)
+       (list p (save-excursion (forward-line 1) (point)) arg))))
+  (ruby-shift-region start end (prefix-numeric-value
+                                (or count ruby-indent-offset)))
+  (ruby-keep-region-active))
+
+(defun ruby-shift-region-left (start end &optional count)
+  (interactive
+   (let ((p (point))
+         (m (condition-case nil (mark) (mark-inactive nil)))
+         (arg current-prefix-arg))
+     (if m
+         (list (min p m) (max p m) arg)
+       (list p (save-excursion (forward-line 1) (point)) arg))))
+  ;; if any line is at column zero, don't shift the region
+  (save-excursion
+    (goto-char start)
+    (while (< (point) end)
+      (back-to-indentation)
+      (if (and (zerop (current-column))
+               (not (looking-at "\\s *$")))
+          (error "Region is at left edge"))
+      (forward-line 1)))
+  (ruby-shift-region start end (- (prefix-numeric-value
+                                   (or count ruby-indent-offset))))
+  (ruby-keep-region-active))
+
+
 (if (featurep 'xemacs)
     (put 'ruby-mode 'font-lock-defaults
          '((ruby-font-lock-keywords)
@@ -1404,19 +1466,6 @@ See `font-lock-syntax-table'.")
                                         ;  0 font-lock-warning-face)
    )
   "Additional expressions to highlight in ruby mode.")
-
-;; Invoke ruby-mode when appropriate
-
-;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-
-;;;###autoload
-(progn
-  (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
-  (add-to-list 'interpreter-mode-alist '("rbx" . ruby-mode))
-  (add-to-list 'interpreter-mode-alist '("jruby" . ruby-mode))
-  (add-to-list 'interpreter-mode-alist '("ruby1.9" . ruby-mode))
-  (add-to-list 'interpreter-mode-alist '("ruby1.8" . ruby-mode)))
 
 (provide 'ruby-mode)
 ;;; ruby-mode.el ends here
