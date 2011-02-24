@@ -40,7 +40,7 @@
 (defvar inf-ruby-first-prompt-pattern ".*"
   "First prompt regex pattern of ruby interpreter.")
 
-(defvar inf-ruby-prompt-pattern "^\\(irb(.*)[0-9:]+[>*\"'] *\\)+"
+(defvar inf-ruby-prompt-pattern ".*"
   "Prompt regex pattern of ruby interpreter.")
 
 (defvar inf-ruby-mode-hook nil
