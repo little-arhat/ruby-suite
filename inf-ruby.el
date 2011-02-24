@@ -1,4 +1,4 @@
-a;;; inf-ruby.el --- Run a ruby process in a buffer
+;;; inf-ruby.el --- Run a ruby process in a buffer
 
 ;; Copyright (C) 1999-2008 Yukihiro Matsumoto, Nobuyoshi Nakada
 
