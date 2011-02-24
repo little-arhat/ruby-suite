@@ -157,9 +157,6 @@ This should only be called after matching against `ruby-here-doc-end-re'."
     (define-key map (kbd "C-m")   'newline)
     (define-key map (kbd "C-c >") 'ruby-shift-region-right)
     (define-key map (kbd "C-c <") 'ruby-shift-region-left)
-    (define-key map (kbd "C-c !") 'run-ruby)
-    (define-key map (kbd "C-c |") 'ruby-send-region)
-    (define-key map (kbd "C-c }") 'ruby-send-region-and-go)
     map)
   "Keymap used in ruby-mode.")
 
