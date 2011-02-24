@@ -1,4 +1,4 @@
-;;; inf-ruby.el --- Run a ruby process in a buffer
+a;;; inf-ruby.el --- Run a ruby process in a buffer
 
 ;; Copyright (C) 1999-2008 Yukihiro Matsumoto, Nobuyoshi Nakada
 
@@ -37,10 +37,10 @@
 (defvar inf-ruby-default-implementation "ruby"
   "Which ruby implementation to use if none is specified.")
 
-(defvar inferior-ruby-first-prompt-pattern "^irb(.*)[0-9:]+0> *"
+(defvar inf-ruby-first-prompt-pattern "^(irb|ruby)(.*)[0-9:]+0> *"
   "first prompt regex pattern of ruby interpreter.")
 
-(defvar inferior-ruby-prompt-pattern "^\\(irb(.*)[0-9:]+[>*\"'] *\\)+"
+(defvar inf-ruby-prompt-pattern "^\\((irb|ruby)(.*)[0-9:]+[>*\"'] *\\)+"
   "prompt regex pattern of ruby interpreter.")
 
 (defvar inf-ruby-mode-hook nil
