@@ -26,12 +26,14 @@ Install it using `el-get`:
                    (add-to-list 'interpreter-mode-alist '("jruby" . ruby-mode))
                    (add-to-list 'interpreter-mode-alist '("ruby1.9" . ruby-mode))
                    (add-to-list 'interpreter-mode-alist '("ruby1.8" . ruby-mode))
+                   (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
+                   (autoload 'inf-ruby-keys "inf-ruby" "" t)
                    (eval-after-load 'ruby-mode '(add-hook 'ruby-mode-hook 'inf-ruby-keys)))))
 
 * That's all!
 
 ## Added features
 
-* Shifting region left and right with (C-c <) and (C-c >).
+* Shifting region left and right with `(C-c <)` and `(C-c >)`.
 
-* (C-c !) starts ruby-interpreter in buffer. 
+* `(C-c !)` starts ruby-interpreter in buffer.
