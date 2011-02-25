@@ -37,10 +37,10 @@
 (defvar inf-ruby-default-implementation "ruby"
   "Which ruby implementation to use if none is specified.")
 
-(defvar inf-ruby-first-prompt-pattern "^"
+(defvar inf-ruby-first-prompt-pattern "^\\(irb\\|ruby\\)[-.0-9a-z]+ *:[0-9]+ *> *"
   "first prompt regex pattern of ruby interpreter.")
 
-(defvar inf-ruby-prompt-pattern "^"
+(defvar inf-ruby-prompt-pattern "^\\(\\(ruby\\|irb\\)[-.0-9a-z]+ *:[0-9]+ *[>*\"'] *\\)+"
   "prompt regex pattern of ruby interpreter.")
 
 (defvar inf-ruby-mode-hook nil
