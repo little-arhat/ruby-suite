@@ -1464,5 +1464,15 @@ See `font-lock-syntax-table'.")
    )
   "Additional expressions to highlight in ruby mode.")
 
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("rbx" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("jruby" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby1.9" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby1.8" . ruby-mode))
+
+
 (provide 'ruby-mode)
 ;;; ruby-mode.el ends here

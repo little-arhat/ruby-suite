@@ -20,12 +20,6 @@ Install it using `el-get`:
           :url "git://github.com/little-arhat/ruby-suite.git"
           :features (ruby-mode inf-ruby)
           :after (lambda ()
-                   (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-                   (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
-                   (add-to-list 'interpreter-mode-alist '("rbx" . ruby-mode))
-                   (add-to-list 'interpreter-mode-alist '("jruby" . ruby-mode))
-                   (add-to-list 'interpreter-mode-alist '("ruby1.9" . ruby-mode))
-                   (add-to-list 'interpreter-mode-alist '("ruby1.8" . ruby-mode))
                    (autoload 'inf-ruby "inf-ruby" "Run an inferior Ruby process" t)
                    (autoload 'inf-ruby-keys "inf-ruby" "" t)
                    (eval-after-load 'ruby-mode '(add-hook 'ruby-mode-hook 'inf-ruby-keys)))))
