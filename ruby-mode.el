@@ -143,6 +143,7 @@ This should only be called after matching against `ruby-here-doc-end-re'."
   (let ((map (make-sparse-keymap)))
     (define-key map "{" 'ruby-electric-brace)
     (define-key map "}" 'ruby-electric-brace)
+    (define-key map (kbd "#") 'ruby-interpolate)
     (define-key map (kbd "M-C-a") 'ruby-beginning-of-defun)
     (define-key map (kbd "M-C-e") 'ruby-end-of-defun)
     (define-key map (kbd "M-C-b") 'ruby-backward-sexp)
@@ -1366,6 +1367,20 @@ See the definition of `ruby-font-lock-syntactic-keywords'."
   (ruby-shift-region start end (- (prefix-numeric-value
                                    (or count ruby-indent-offset))))
   (ruby-keep-region-active))
+
+;;; All credits go to Johan Andersson
+;;; http://tuxicity.se/emacs/elisp/ruby/2010/11/10/ruby-interpolation.html
+;;; Copied and slightly modified for my needs
+
+(defun ruby-interpolate ()
+  "In a double quoted string, interpolate."
+  (interactive)
+  (insert "#")
+  ;;; my emacs doesn't insert second quote automatically,
+  ;;; so i only check for beginning of string
+  (when (looking-back "\".*")
+    (insert "{}")
+    (backward-char 1)))
 
 
 (if (featurep 'xemacs)
