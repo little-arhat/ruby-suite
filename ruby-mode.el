@@ -1378,6 +1378,8 @@ See the definition of `ruby-font-lock-syntactic-keywords'."
   (insert "#")
   ;;; my emacs doesn't insert second quote automatically,
   ;;; so i only check for beginning of string
+  ;;; i'm proud user of enclose now, but want to keep
+  ;;; less strict checking for strings
   (when (looking-back "\".*")
     (insert "{}")
     (backward-char 1)))
