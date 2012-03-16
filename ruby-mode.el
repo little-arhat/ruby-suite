@@ -236,6 +236,9 @@ Also ignores spaces after parenthesis when 'space."
 (put 'ruby-comment-column 'safe-local-variable 'integerp)
 (put 'ruby-deep-arglist 'safe-local-variable 'booleanp)
 
+;; Set ruby-indent-level implicitly
+(setq ruby-indent-level 2)
+
 (defun ruby-imenu-create-index-in-block (prefix beg end)
   "Create an imenu index of methods inside a block."
   (let ((index-alist '()) (case-fold-search nil)
@@ -387,7 +390,7 @@ The variable ruby-indent-level controls the amount of indentation.
 (defun ruby-indent-line (&optional flag)
   "Correct the indentation of the current ruby line."
   (interactive)
-  (ruby-indent-to (ruby-calculate-indent)))
+  (ruby-indent-to (ruby-calculate-indent 0)))
 
 (defun ruby-indent-to (column)
   "Indent the current line to COLUMN."
